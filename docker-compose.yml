@@ -1,0 +1,73 @@
+services:
+  backend:
+    build:
+      context: ./Backend/api_greenroots
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Backend/api_greenroots:/app
+      - /app/node_modules
+    env_file:
+      - docker.env
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+
+  frontend:
+    build:
+      context: ./Frontend/nextjs_greenroots
+      dockerfile: Dockerfile
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3000/
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - "5556:5556"
+    volumes:
+      - ./Frontend/nextjs_greenroots:/app
+      - /app/node_modules
+    env_file:
+      - docker.env
+
+  postgres:
+    image: postgres:14
+    container_name: greenroots-postgres
+    environment:
+      POSTGRES_USER: greenroots
+      POSTGRES_PASSWORD: greenroots
+      POSTGRES_DB: greenroots
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./Database/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U greenroots"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  data-loader:
+    build:
+      context: ./Database
+      dockerfile: Dockerfile.loader
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGHOST: postgres
+      PGUSER: greenroots
+      PGPASSWORD: greenroots
+      PGDATABASE: greenroots
+      PGPORT: 5432
+
+  adminer:
+    image: adminer
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
