@@ -23,13 +23,13 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }} # Nom d'utilisateur Docker Hub dans les secrets
-          password: ${{ secrets.DOCKER_PASSWORD }} # Mot de passe Docker Hub dans les secrets
+          password: ${{ secrets.DOCKER_PASSWORD }} # Mot de passe Docker Hub dans les secrets 
 
       # Étape 4 : Construire l'image Docker
       - name: Build Docker image
         run: |
           export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}  
-          export GITHUB_SHA=$(git rev-parse --short HEAD) 
+          export GITHUB_SHA=$(git rev-parse --short HEAD)
           docker build -t ${{ secrets.DOCKER_USERNAME }}/greenroots-backend:${{ github.sha }}  -f Backend/api_greenroots/Dockerfile Backend/api_greenroots
           docker build -t ${{ secrets.DOCKER_USERNAME }}/greenroots-frontend:${{ github.sha }}  -f Frontend/nextjs_greenroots/Dockerfile Frontend/nextjs_greenroots
           docker build -t ${{ secrets.DOCKER_USERNAME }}/greenroots-loader:${{ github.sha }}  -f Database/Dockerfile.loader Database
