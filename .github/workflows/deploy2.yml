@@ -3,7 +3,7 @@ name: Build and Deploy to Hostinger
 on:
   push:
     branches:
-      - main # Déclenchement sur push sur la branche main
+      - main # Déclenchement sur push sur la branche main 
 
 jobs:
   build_and_deploy:
