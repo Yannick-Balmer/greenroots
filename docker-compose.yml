@@ -71,3 +71,7 @@ services:
 
 volumes:
   postgres_data:
+
+networks:
+  app-greenroots:
+    external: true
