@@ -1,0 +1,23 @@
+name: Build and Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main # Déclenchement sur push sur la branche main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 7 : Se connecter au VPS via SSH et déployer
+      - name: Deploy to Hostinger VPS
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOSTINGER_IP }} # IP de votre VPS Hostinger dans les secrets
+          username: ${{ secrets.HOSTINGER_USER }} # Nom d'utilisateur SSH
+          key: ${{ secrets.HOSTINGER_SSH_KEY }} # Clé SSH privée (doit être ajoutée dans les secrets)
+          script: |
+            /opt/deployment/deploy-backend.sh ${{ secrets.DOCKER_USERNAME }}/greenroots-backend backend 3000 ${{ github.sha }}
+            /opt/deployment/deploy-frontend.sh ${{ secrets.DOCKER_USERNAME }}/greenroots-frontend frontend 5556 ${{ github.sha }}
+            /opt/deployment/deploy-loader.sh ${{ secrets.DOCKER_USERNAME }}/greenroots-loader postgres 5432 ${{ github.sha }}
