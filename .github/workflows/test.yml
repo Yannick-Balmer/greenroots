@@ -1,0 +1,20 @@
+name: Test SSH Connection to Hostinger
+
+on:
+  workflow_dispatch: # Déclenchement manuel dans l'onglet Actions
+
+jobs:
+  ssh_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test SSH connection
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOSTINGER_IP }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: 22
+          script: |
+            echo "✅ Connexion SSH réussie sur Hostinger !"
+            uname -a
