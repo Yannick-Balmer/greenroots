@@ -6,7 +6,8 @@ COPY package*.json ./
 COPY insert.js ./
 COPY categories_img.js ./
 COPY Data ./Data
+COPY wait-for-postgres.sh ./wait-for-postgres.sh
 
-RUN npm install pg
+RUN chmod +x wait-for-postgres.sh && npm install pg
 
-CMD ["node", "insert.js"]
+CMD ["./wait-for-postgres.sh"]
