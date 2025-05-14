@@ -55,4 +55,4 @@ jobs:
           script: |
             /opt/deployment/deploy.sh ${{ secrets.DOCKER_USERNAME }}/greenroots-backend backend 3000 ${{ github.sha }}
             /opt/deployment/deploy.sh ${{ secrets.DOCKER_USERNAME }}/greenroots-frontend frontend 5556 ${{ github.sha }}
-            /opt/deployment/deploy.sh ${{ secrets.DOCKER_USERNAME }}/greenroots-loader postgres 5432 ${{ github.sha }}
+            /opt/deployment/deploy-db.sh ${{ secrets.DOCKER_USERNAME }}/greenroots-loader postgres 5432 ${{ github.sha }}
