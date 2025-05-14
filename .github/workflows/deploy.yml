@@ -50,7 +50,7 @@ jobs:
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOSTINGER_IP }} # IP de votre VPS Hostinger dans les secrets
-          username: ${{ secrets.HOSTINGER_USER }} # Nom d'utilisateur SSH
+          username: ${{ secrets.HOSTINGER_USER }} # Nom d'utilisateur SSH 
           key: ${{ secrets.HOSTINGER_SSH_KEY }} # Clé SSH privée (doit être ajoutée dans les secrets)
           script: |
             /opt/deployment/deploy.sh ${{ secrets.DOCKER_USERNAME }}/greenroots-backend backend 3000 ${{ github.sha }}
