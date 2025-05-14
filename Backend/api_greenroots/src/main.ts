@@ -13,6 +13,7 @@ async function bootstrap() {
       'http://greenroots.jordan-s.org',
       'https://greenroots.jordan-s.org',
       'https://7a83-2a01-cb15-11-6800-ac4d-297-eee7-2fb2.ngrok-free.app',
+      'https://concours-belote.com',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: [
@@ -39,6 +40,8 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(process.env.PORT ?? 3000);
+  // await app.listen(process.env.PORT ?? 3000);
+  // pour faire fonctionner en prod
+  await app.listen(3000, '0.0.0.0');
 }
 bootstrap().catch((err) => console.error('Error starting server:', err));
