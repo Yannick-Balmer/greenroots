@@ -32,3 +32,7 @@ logs:
 restart:
 	docker-compose restart
 
+push-prod:
+	git add .
+	git commit -m "test deply $(VERSION)"
+	git push
