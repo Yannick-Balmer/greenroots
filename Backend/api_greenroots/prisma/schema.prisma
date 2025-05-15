@@ -5,9 +5,9 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url      = env("DATABASE_URL")
-  url      = "postgres://greenroots:greenroots@postgres/greenroots"
+  url      = "postgres://greenroots:greenroots@postgres:5432/greenroots"
 }
+
 
 model Category {
   id          Int       @id @default(autoincrement())
