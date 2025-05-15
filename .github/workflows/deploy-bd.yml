@@ -41,7 +41,7 @@ jobs:
       - name: Logout from DockerHub
         run: docker logout
 
-      # Étape 7 : Se connecter au VPS via SSH et déployer 
+      # Étape 7 : Se connecter au VPS via SSH et déployer  
       - name: Deploy to Hostinger VPS
         uses: appleboy/ssh-action@v0.1.7
         with:
