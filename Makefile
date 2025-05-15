@@ -34,5 +34,5 @@ restart:
 
 push-prod:
 	git add .
-	git commit -m "test deply $(VERSION)"
+	git commit -m "test deploy $(VERSION)"
 	git push
