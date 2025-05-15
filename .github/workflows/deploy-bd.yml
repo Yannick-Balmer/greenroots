@@ -30,14 +30,14 @@ jobs:
         run: |
           export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}  
           export GITHUB_SHA=$(git rev-parse --short HEAD)
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/greenroots-loader:${{ github.sha }}  -f Database/Dockerfile.loader Database
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/greenroots-pg:${{ github.sha }}  -f Database/Dockerfile.loader Database
 
       # Étape 5 : Pousser l'image vers Docker Hub
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/greenroots-loader:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/greenroots-pg:${{ github.sha }}
 
-      # Étape 6: Déconnexion de Docker
+      # Étape 6: Déconnexion de Docker 
       - name: Logout from DockerHub
         run: docker logout
 

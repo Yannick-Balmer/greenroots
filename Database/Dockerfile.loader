@@ -1,10 +1,7 @@
-FROM node:18
+# Utiliser l'image officielle comme base
+FROM postgres:14
 
-WORKDIR /app
-
-COPY package*.json ./
-COPY insert.js ./
-COPY categories_img.js ./
-COPY Data ./Data
-
-RUN npm install pg
+# Définir les variables d’environnement par défaut (surchargeables au run)
+ENV POSTGRES_USER=greenroots
+ENV POSTGRES_PASSWORD=greenroots
+ENV POSTGRES_DB=greenroots
